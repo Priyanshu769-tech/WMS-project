@@ -1,0 +1,153 @@
+{% extends 'masterData/base.html' %} {% load static %} {% block content %}
+
+<!-- Sidebar Start -->
+<div class="sidebar pe-4 pb-3">
+  <nav class="navbar bg-light navbar-light">
+    <a href="{%url 'worker_dashboard' %}" class="navbar-brand mx-4 mb-3">
+      <h5 class="text-primary">Worker Dashboard</h5>
+    </a>
+
+    <div class="d-flex align-items-center ms-4 mb-4">
+      <div class="position-relative">
+        <img
+          class="rounded-circle"
+          src="{% static 'img/user.jpg' %}"
+          alt=""
+          style="width: 40px; height: 40px"
+        />
+        <div
+          class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"
+        ></div>
+      </div>
+      <div class="ms-3">
+        <h6 class="mb-0">{{user.username}}</h6>
+      </div>
+    </div>
+    <div class="navbar-nav w-100">
+      <a href="{% url 'worker_dashboard'%}" class="nav-item nav-link"
+        ><i class="fa fa-tachometer-alt me-2"></i>Home</a
+      >
+      <a href="{% url 'supplierdetails' %}" class="nav-item nav-link"
+        ><i class="fa fa-th me-2"></i>Good Recieve</a
+      >
+      <!-- <a href="{% url 'supplier'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Add Supplier</a>
+            <a href="{% url 'addcustomer'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Add Customer</a> -->
+
+      <a href="{% url 'orm'%}" class="nav-item nav-link active"
+        ><i class="fa fa-keyboard me-2"></i>Order Recieve
+      </a>
+
+      {% comment %}
+      <a href="{% url 'inventory'%}" class="nav-item nav-link"
+        ><i class="fa fa-keyboard me-2"></i>Inventory</a
+      >
+      {% endcomment %}
+      <a href="{% url 'itemtagging'%}" class="nav-item nav-link"
+        ><i class="fa fa-keyboard me-2"></i>Item Tag</a
+      >
+
+      {% comment %}
+      <a href="{% url 'superapproval'%}" class="nav-item nav-link"
+        ><i class="fa fa-keyboard me-2"></i>Order Processing</a
+      >
+      {% endcomment %}
+    </div>
+  </nav>
+</div>
+<!-- Sidebar End -->
+<!-- Content Start -->
+<div class="content">
+  <!-- <div class="content"> -->
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+    <div class="navbar-nav align-items-center ms-auto">
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          <span class="d-none d-lg-inline-flex">{{user.username}}</span>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"
+        >
+          <a href="{% url 'logout' %}" class="dropdown-item">Log Out</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+<br>
+  <div class="card shadow border col-8 mx-auto">
+    <div class="card-body d-flex flex-column align-items-center">
+      <form method="POST" id="form-id">
+        <h4>Customer Name: {{ cust.CustomerName }}</h4>
+        <h4>Contact Number: {{ cust.ContactNumber }}</h4>
+        <hr size="10px">
+        <h4>Order Id: {{ orderid }}</h4>
+      </form>
+    </div>
+  </div>
+<br>
+  <div class="row align-items-center">
+    <div class="col-8 mx-auto">
+      <h1 align="center">Order Recieve Detail</h1>
+      <div class="card shadow border">
+        <div class="card-body d-flex flex-column align-items-center">
+          <form method="POST" id="form-id">
+            {% csrf_token %}
+            <div>{{form.as_p}}</div>
+            <a href="{% url 'worker_dashboard' %}" class="btn btn-outline-primary btn-sm">Home</a>
+            <button class="btn btn-outline-success btn-sm" type="submit">Add to List
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-11 mx-auto">
+      <div class="card shadow border">
+        <div class="card-body d-flex flex-column align-items-center">
+          
+          <h3 align="center">Order Details</h3>
+          <table class="table table-hover table-secondary mt-2">
+            <thead>
+              <tr>
+                <th scope="col">Item Name</th>
+                <th scope="col">Item Code</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for orderDetail in orderDetailList %}
+              <tr>
+                <td>{{ orderDetail.get_ItemCode_display }}</td>
+                <td>{{ orderDetail.ItemCode }}</td>
+                <td>{{ orderDetail.Qty }}</td>
+                <td>
+                  <a
+                    href="{% url 'deleteDetail' orderDetail.id %}"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </a>
+                  <a
+                    href="{% url 'updatedetail' orderDetail.id %}"
+                    class="btn btn-sm btn-outline-warning"
+                  >
+                    Update
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

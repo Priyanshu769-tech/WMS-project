@@ -1,0 +1,84 @@
+{% extends 'masterData/base.html' %}
+{% block content %}
+<h1>
+    Pick Slip
+</h1>
+<br>
+<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary"> HOME </a>
+<button onclick="window.print()" class="btn btn-sm btn-outline-primary">Save as PDF</button>
+<br>
+<br>
+{% for element in list1 %}
+<h3>Order Id: {{ element }}</h3>
+<h3>Customer Id: {{ element.CustomerId }}</h3>
+<h3>User Id: {{ element.UserId }}</h3>
+{% endfor %}
+<br>
+<br>
+<h3 align="center">Customer Details</h3>
+<table class="table table-hover table-dark mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Customer Id</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Address</th>
+            <th scope="col">Customer City</th>
+            <th scope="col">Customer Number</th>
+            <th scope="col">Customer Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ cust }}</td>
+            <td>{{ cust.CustomerName }}</td>
+            <td>{{ cust.CustomerAddress }}</td>
+            <td>{{ cust.CustomerCity }}</td>
+            <td>{{ cust.ContactNumber }}</td>
+            <td>{{ cust.CustomerEmail }}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h3 align="center">Items in the Order</h3>
+<div class="row" style="margin-right:120px;">
+    <table class="table table-hover table-dark col-md-7">
+        <thead>
+            <tr>
+                <th scope="col">Item Name</th>
+                <th scope="col">Item Code</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Supervisor Approval</th>
+            </tr>
+        </thead>
+        <tbody>
+        <div class="col sm-4">
+            {% for element in list2 %}
+            <tr>
+                <td>{{ element.get_ItemCode_display }}</td>
+                <td>{{ element.ItemCode }}</td>
+                <td>{{ element.Qty }}</td>
+                <td>{{ element.isApproved }}</td>
+            {% endfor %}
+            </tr>
+        </div>
+        </tbody>
+    </table>
+    <table class="table table-hover table-dark col-md-4">
+        <thead>
+            <tr>
+                <th scope="col">Zone Id</th>
+                <th scope="col">Bin Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for elements in op %}
+            <tr>
+                <td>{{ elements.ZoneId }}</td>
+                <td>{{ elements.BinId }}</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'masterData/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Sidebar Start -->
+<div class="sidebar pe-4 pb-3">
+    <nav class="navbar bg-light navbar-light">
+        <a href="{%url 'logout' %}" class="navbar-brand mx-4 mb-3">
+            <h5 class="text-primary">Manager Dashboard</h5>
+        </a>
+       
+        <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>Worker MasterData</h5>
+        </a>
+        <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+                <img class="rounded-circle" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3">
+                <h6 class="mb-0">{{user.username}}</h6>
+            </div>
+        </div>
+        <div class="navbar-nav w-100">
+            <a href="{% url 'home'%}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
+            <a href="{% url 'items'%}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Items Received</a>
+            <a href="{% url 'orders'%}" class="nav-item nav-link  active"><i class="fa fa-keyboard me-2"></i>Orders Received</a>
+        </div>
+    </nav>
+</div>
+<!-- Sidebar End -->
+    <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <div class="navbar-nav align-items-center ms-auto">        
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <span class="d-none d-lg-inline-flex">{{user.username}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <a href=" {% url 'logout'%}" class="dropdown-item">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+            <!-- Items Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light text-center rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Items</h6>
+                            <a href="">Show All</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Invoice</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox"></td>
+                                        <td>01 Jan 2045</td>
+                                        <td>INV-0123</td>
+                                        <td>Jhon Doe</td>
+                                        <td>$123</td>
+                                        <td>Paid</td>
+                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox"></td>
+                                        <td>01 Jan 2045</td>
+                                        <td>INV-0123</td>
+                                        <td>Jhon Doe</td>
+                                        <td>$123</td>
+                                        <td>Paid</td>
+                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox"></td>
+                                        <td>01 Jan 2045</td>
+                                        <td>INV-0123</td>
+                                        <td>Jhon Doe</td>
+                                        <td>$123</td>
+                                        <td>Paid</td>
+                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox"></td>
+                                        <td>01 Jan 2045</td>
+                                        <td>INV-0123</td>
+                                        <td>Jhon Doe</td>
+                                        <td>$123</td>
+                                        <td>Paid</td>
+                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox"></td>
+                                        <td>01 Jan 2045</td>
+                                        <td>INV-0123</td>
+                                        <td>Jhon Doe</td>
+                                        <td>$123</td>
+                                        <td>Paid</td>
+                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            <!-- Items End -->
+        </div>
+    <!-- Content End -->
+{% endblock content %}

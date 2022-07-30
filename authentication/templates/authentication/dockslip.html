@@ -1,0 +1,165 @@
+{% extends 'masterData/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Sidebar Start -->
+<div class="sidebar pe-4 pb-3">
+    <nav class="navbar bg-light navbar-light">
+        <a href="{%url 'suphome' %}" class="navbar-brand mx-4 mb-3">
+            <h5 class="text-primary">Supervisor Dashboard</h5>
+        </a>
+       
+        <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+                <img class="rounded-circle" src="{% static 'img/testimonial-2.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3">
+                <h6 class="mb-0">{{user.username}}</h6>
+            </div>
+        </div>
+        <div class="navbar-nav w-100">
+            <a href="{% url 'suphome'%}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            {% comment %} <a href="{% url 'addwarehouse' %}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Warehouse</a>
+            <a href="{% url 'addsupp'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Add Supplier</a>
+            <a href="{% url 'addcustomer'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Add Customer</a>
+
+            <a href="{% url 'orm'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Order Recieve </a>
+
+            <a href="{% url 'inventory'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Inventory</a> {% endcomment %}
+            <a href="{% url 'superapproval'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Order Processing</a>
+            <a href="{% url 'dockallocation_table'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Dock Allocation</a>
+
+
+
+
+        </div>
+    </nav>
+</div>
+<!-- Sidebar End -->
+        <!-- Content Start -->
+        <div class="content">
+         <!-- Navbar Start -->
+         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+          <div class="navbar-nav align-items-center ms-auto">        
+              <div class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                      <span class="d-none d-lg-inline-flex">{{user.username}}</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                    <a href=" {% url 'logout'%}" class="dropdown-item">Log Out</a>
+                  </div>
+              </div>
+          </div>
+      </nav>
+      <!-- Navbar End -->
+
+
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <h1 align="center">
+                    Dock Slip
+                </h1>
+                <div class="card shadow border">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <form method="POST" id="form-id">
+                            {% csrf_token %}
+                            {% for element in list1 %}
+                            <h3>Recieve Id: {{ element }}</h3>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br>
+
+    <div class="col-11">
+        <div class="card shadow border">
+          <div class="d-flex flex-column align-items-center">
+            <h3 align="center">Items in the Order</h3>
+            <div class="row container-fluid mx-auto">
+              <div class="table-responsive mx-0 col-sm-8">
+                <table class="table table-hover table-light mt-2">
+                  <thead>
+                    <tr>
+                      <th scope="col">Description</th>
+                      <th scope="col">Code</th>
+                      <th scope="col">Batch No</th>
+                      <th scope="col">Quantity</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for element in list2 %} 
+                    <tr>
+                      <td>{{ element.get_ItemCode_display }}</td>
+                      <td>{{ element.ItemCode }}</td>
+                      <td>{{ element.BatchNo}}</td>
+                      <td>{{ element.RecieveQty }}</td>
+                    
+                     
+                 
+                    </tr>
+                   {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-responsive mx-0 col-sm-3">
+                <table class="table table-hover table-light mt-2">
+                  <thead>
+                    <tr>
+                      <th scope="col">Zone Name</th>
+                      <th scope="col">Bin Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for element in list3 %}
+                    <tr>
+                      <td>{{ element.ZoneId }}</td>
+                      <td>{{ element.BinId }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
+        <a
+      href="{% url 'suphome' %}"
+      class="btn btn-sm btn-outline-primary mt-3"
+      id="homebtn"
+    >
+      HOME
+    </a>
+    <button
+      onclick="printpage()"
+      class="btn btn-sm btn-outline-primary mt-3"
+      id="printbtn"
+    >
+      Save as PDF
+    </button>
+  </div>
+</div>
+
+<script>
+  function printpage() {
+    var homebtn = document.getElementById("homebtn");
+    homebtn.style.visibility = "hidden";
+    var printbtn = document.getElementById("printbtn");
+    printbtn.style.visibility = "hidden";
+    var nav_bar = document.getElementById("nav_bar");
+    homebtn.style.visibility = "hidden";
+    window.print();
+
+    homebtn.style.visibility = "visible";
+
+    printbtn.style.visibility = "visible";
+    nav_bar.style.visibility = "visible";
+  }
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends 'masterData/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Worker's Dashboard</h1>
+    <br/>
+    <form action="{% url 'itemmaster' %}" method="post">
+        {% csrf_token %}
+      <input class="btn" type="submit" value="Receive goods" />
+    </form>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+      <input class="btn" type="submit" value="Logout" />
+    </form>
+ 
+  </body>
+</html>

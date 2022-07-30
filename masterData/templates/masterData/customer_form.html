@@ -1,0 +1,77 @@
+
+
+{% extends 'masterData/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Sidebar Start -->
+<div class="sidebar pe-4 pb-3">
+    <nav class="navbar bg-light navbar-light">
+        <a href="{%url 'home' %}" class="navbar-brand mx-4 mb-3">
+            <h5 class="text-primary">Manager Dashboard</h5>
+        </a>
+       
+        <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+                <img class="rounded-circle" src="{% static 'img/testimonial-1.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3">
+                <h6 class="mb-0">{{user.username}}</h6>
+            </div>
+        </div>
+        <div class="navbar-nav w-100">
+            <a href="{% url 'home'%}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Home</a>
+            <a href="{% url 'addwarehouse' %}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Warehouse</a>
+            <a href="{% url 'supplier'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Add Supplier</a>
+            <a href="{% url 'addcustomer'%}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Add Customer</a>
+
+
+            {% comment %} <a href="{% url 'inventory'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Inventory</a> {% endcomment %}
+            <a href="{% url 'ita'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Item Approval</a>
+
+            <a href="{% url 'ota'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Order Approval</a>
+            <a href="{% url 'ihome'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Inventory</a>
+            <a href="{% url 'dispa'%}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Order Dispatch</a>
+
+        </div>
+    </nav>
+</div>
+<!-- Sidebar End -->
+
+    <div class="content">
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <div class="navbar-nav align-items-center ms-auto">        
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <span class="d-none d-lg-inline-flex">{{user.username}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <a href=" {% url 'logout'%}" class="dropdown-item">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+    <div class="row align-items-center vh-100">
+        <div class="col-6 mx-auto">
+            <div class="card shadow border">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <h1>
+                        Customer Form
+                    </h1>
+                    <form method = "POST">
+                        {% csrf_token %}
+                    <div>
+                        {{form.as_p}}
+                    </div>
+                    <button class = "btn btn-outline-success btn-sm" type ="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

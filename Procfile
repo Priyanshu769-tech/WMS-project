@@ -1,0 +1,1 @@
+web: unicorn EWMS.wsgi --log-file -

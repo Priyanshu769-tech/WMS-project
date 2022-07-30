@@ -1,0 +1,10 @@
+{% extends 'masterData/base.html' %}
+{% block content %}
+<form method = "POST">
+    {% csrf_token %}
+<div>
+    {{form.as_p}}
+</div>
+<button class = "btn btn-outline-success btn-sm" type ="submit">Submit</button>
+</form>
+{% endblock %}
