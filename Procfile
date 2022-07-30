@@ -1,1 +1,1 @@
-web: unicorn EWMS.wsgi --log-file -
+web: gunicorn EWMS.wsgi --log-file -
